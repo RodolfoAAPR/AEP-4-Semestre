@@ -8,7 +8,7 @@
  CREATE TABLE Medication (
     idMedication INT PRIMARY KEY AUTO_INCREMENT,
     medicationName VARCHAR(100) NOT NULL,
-    description VARCHAR(255) 
+    description VARCHAR(255)
 );
 
 CREATE TABLE Schedule (
@@ -16,10 +16,10 @@ CREATE TABLE Schedule (
     idUser INT NOT NULL,
     idMedication INT NOT NULL,
     dosage VARCHAR(50) NOT NULL,
-    time TIME NOT NULL, 
-    frequency VARCHAR(50) NOT NULL, 
+    time TIME NOT NULL,
+    frequency VARCHAR(50) NOT NULL,
     startDate DATE NOT NULL,
-    finishDate DATE, 
+    finishDate DATE,
 
     FOREIGN KEY (idUser) REFERENCES User(id),
     FOREIGN KEY (idMedication) REFERENCES Medication(idMedication)
@@ -29,31 +29,31 @@ CREATE TABLE UserLog (
     idRegister INT PRIMARY KEY AUTO_INCREMENT,
     idSchedule INT NOT NULL,
     confirmationTime DATETIME NOT NULL,
-    status VARCHAR(20) NOT NULL, 
+    status VARCHAR(20) NOT NULL,
 
     FOREIGN KEY (idSchedule) REFERENCES Schedule(idSchedule)
 );
 
-INSERT INTO User (name, email, password) 
+INSERT INTO User (name, email, password)
 VALUES ('João da Silva', 'joao.silva@email.com', 'senha_hash_123');
 
-INSERT INTO User (name, email, password, userType) 
+INSERT INTO User (name, email, password, userType)
 VALUES ('Maria Souza', 'maria.cuidadora@email.com', 'senha_hash_456', 'Cuidador');
 
-INSERT INTO Medication (medicationName, description) 
+INSERT INTO Medication (medicationName, description)
 VALUES ('Paracetamol', '500mg Comprimido');
 
-INSERT INTO Medication (medicationName, description) 
+INSERT INTO Medication (medicationName, description)
 VALUES ('Losartana', '50mg (uso contínuo)');
 
-INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate, finishDate) 
+INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate, finishDate)
 VALUES (1, 1, '1 comprimido', '08:00:00', 'A cada 6 horas', '2025-11-10', '2025-11-15');
 
-INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate) 
+INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate)
 VALUES (1, 2, '1 comprimido', '09:00:00', 'Diário', '2025-11-01');
 
-INSERT INTO UserLog (idSchedule, confirmationTime, status) 
+INSERT INTO UserLog (idSchedule, confirmationTime, status)
 VALUES (1, '2025-11-10 08:01:25', 'Tomou');
 
-INSERT INTO UserLog (idSchedule, confirmationTime, status) 
+INSERT INTO UserLog (idSchedule, confirmationTime, status)
 VALUES (2, '2025-11-10 09:05:00', 'Pulou');
