@@ -18,7 +18,7 @@ public class Medication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idMedication;
 
     private String medicationName;
 
