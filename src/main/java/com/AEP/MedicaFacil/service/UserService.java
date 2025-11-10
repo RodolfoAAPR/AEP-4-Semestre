@@ -29,7 +29,7 @@ public class UserService {
 
     public User updateUser(Long id, User user){
         User newUser = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente com o ID: " + id + " não encontrtado"));
+                .orElseThrow(() -> new EntityNotFoundException("Cliente com o ID: " + id + " não encontrado"));
 
         newUser.setName(user.getName());
         newUser.setUserType(user.getUserType());

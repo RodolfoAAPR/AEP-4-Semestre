@@ -4,9 +4,11 @@ import com.AEP.MedicaFacil.model.Medication;
 import com.AEP.MedicaFacil.repository.MedicationRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MedicationService {
 
     @Autowired
@@ -27,10 +29,10 @@ public class MedicationService {
 
     public Medication updateMedication(Medication medication, Long id) {
         Medication newMedication = medicationRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("A medicação com o ID: \" + id + \" não foi encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("A medicação com o ID: " + id + " não foi encontrada."));
 
         newMedication.setMedicationName(medication.getMedicationName());
-        newMedication.setDescription(newMedication.getDescription());
+        newMedication.setDescription(medication.getDescription());
 
         return medicationRepository.save(newMedication);
     }

@@ -1,17 +1,16 @@
 package com.AEP.MedicaFacil.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@Table(name = "agendamentos")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,16 +18,24 @@ import java.time.LocalTime;
 public class Schedule {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSchedule;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "medication_id", nullable = false)
+    private Medication medication;
 
     private String dosage;
 
-    private LocalTime time;
+    private LocalTime time; // Hora do dia para tomar o medicamento
 
-    private String frequency;
+    private String frequency; // Ex: "A cada 8 horas", "Diariamente"
 
-    private LocalTime startDate;
+    private LocalDate startDate; // Data de início do tratamento
 
-    private LocalTime finishDate;
+    private LocalDate finishDate; // Data de fim do tratamento
 }
