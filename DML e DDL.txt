@@ -1,59 +1,55 @@
- CREATE TABLE User (
-    id int primary key auto_increment,
-    name varchar(100) NOT NULL,
-    email varchar(100) NOT NULL,
-    userType varchar(20) default 'Paciente'
- );
+-- =================================================================
+-- DDL (Data Definition Language) - Comandos de Estrutura do Banco
+-- =================================================================
 
- CREATE TABLE Medication (
-    idMedication INT PRIMARY KEY AUTO_INCREMENT,
-    medicationName VARCHAR(100) NOT NULL,
-    description VARCHAR(255)
-);
+CREATE TABLE `usuarios` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `user_type` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE Schedule (
-    idSchedule INT PRIMARY KEY AUTO_INCREMENT,
-    idUser INT NOT NULL,
-    idMedication INT NOT NULL,
-    dosage VARCHAR(50) NOT NULL,
-    time TIME NOT NULL,
-    frequency VARCHAR(50) NOT NULL,
-    startDate DATE NOT NULL,
-    finishDate DATE,
+CREATE TABLE `medication` (
+  `id_medication` bigint NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `medication_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_medication`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-    FOREIGN KEY (idUser) REFERENCES User(id),
-    FOREIGN KEY (idMedication) REFERENCES Medication(idMedication)
-);
+CREATE TABLE `agendamentos` (
+  `id_schedule` bigint NOT NULL AUTO_INCREMENT,
+  `dosage` varchar(255) DEFAULT NULL,
+  `finish_date` date DEFAULT NULL,
+  `frequency` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `time` time(6) DEFAULT NULL,
+  `medication_id` bigint NOT NULL,
+  `user_id` bigint NOT NULL,
+  PRIMARY KEY (`id_schedule`),
+  KEY `FK6t477ldg30c6anmd9fva1ldp5` (`medication_id`),
+  KEY `FKa6dqagm5u4j822x91ky3sl2x7` (`user_id`),
+  CONSTRAINT `FK6t477ldg30c6anmd9fva1ldp5` FOREIGN KEY (`medication_id`) REFERENCES `medication` (`id_medication`),
+  CONSTRAINT `FKa6dqagm5u4j822x91ky3sl2x7` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE UserLog (
-    idRegister INT PRIMARY KEY AUTO_INCREMENT,
-    idSchedule INT NOT NULL,
-    confirmationTime DATETIME NOT NULL,
-    status VARCHAR(20) NOT NULL,
 
-    FOREIGN KEY (idSchedule) REFERENCES Schedule(idSchedule)
-);
+-- =================================================================
+-- DML (Data Manipulation Language) - Comandos para inserir os dados
+-- =================================================================
 
-INSERT INTO User (name, email, password)
-VALUES ('João da Silva', 'joao.silva@email.com', 'senha_hash_123');
+-- Inserindo Usuários
+INSERT INTO usuarios (name, email, userType) VALUES ('Carlos Pereira', 'carlos.p@email.com', 'Paciente');
+INSERT INTO usuarios (name, email, userType) VALUES ('Mariana Lima', 'mari.lima@email.com', 'Cuidador');
+INSERT INTO usuarios (name, email, userType) VALUES ('Jorge Almeida', 'jorge.a@email.com', 'Paciente');
 
-INSERT INTO User (name, email, password, userType)
-VALUES ('Maria Souza', 'maria.cuidadora@email.com', 'senha_hash_456', 'Cuidador');
+-- Inserindo Medicamentos
+INSERT INTO medication (medicationName, description) VALUES ('Dipirona 500mg', 'Analgésico e antitérmico');
+INSERT INTO medication (medicationName, description) VALUES ('Amoxicilina 250mg', 'Antibiótico para infecções bacterianas');
+INSERT INTO medication (medicationName, description) VALUES ('Sinvastatina 20mg', 'Controle do colesterol');
 
-INSERT INTO Medication (medicationName, description)
-VALUES ('Paracetamol', '500mg Comprimido');
-
-INSERT INTO Medication (medicationName, description)
-VALUES ('Losartana', '50mg (uso contínuo)');
-
-INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate, finishDate)
-VALUES (1, 1, '1 comprimido', '08:00:00', 'A cada 6 horas', '2025-11-10', '2025-11-15');
-
-INSERT INTO Schedule (idUser, idMedication, dosage, time, frequency, startDate)
-VALUES (1, 2, '1 comprimido', '09:00:00', 'Diário', '2025-11-01');
-
-INSERT INTO UserLog (idSchedule, confirmationTime, status)
-VALUES (1, '2025-11-10 08:01:25', 'Tomou');
-
-INSERT INTO UserLog (idSchedule, confirmationTime, status)
-VALUES (2, '2025-11-10 09:05:00', 'Pulou');
+-- Inserindo Agendamentos (assumindo que os IDs foram 1, 2, 3 para usuários e medicamentos)
+INSERT INTO agendamentos (user_id, medication_id, dosage, time, frequency, startDate, finishDate) VALUES (1, 1, '1 comprimido', '10:00:00', 'Se houver dor', '2025-11-10', '2025-12-10');
+INSERT INTO agendamentos (user_id, medication_id, dosage, time, frequency, startDate, finishDate) VALUES (2, 2, '5ml', '08:00:00', 'A cada 8 horas', '2025-11-10', '2025-11-17');
+INSERT INTO agendamentos (user_id, medication_id, dosage, time, frequency, startDate, finishDate) VALUES (3, 3, '1 comprimido', '20:00:00', 'Diariamente', '2025-11-01', '2026-05-01');
+INSERT INTO agendamentos (user_id, medication_id, dosage, time, frequency, startDate, finishDate) VALUES (1, 3, '1 comprimido', '21:00:00', 'Diariamente', '2025-10-20', '2026-04-20');
