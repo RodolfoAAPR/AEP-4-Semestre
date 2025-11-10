@@ -1,7 +1,7 @@
 package com.AEP.MedicaFacil.repository;
 
-import com.AEP.MedicaFacil.model.User;
+import com.AEP.MedicaFacil.model.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ScheduleRepository extends JpaRepository<User, Long> {
+public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 }
