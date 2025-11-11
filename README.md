@@ -3,8 +3,8 @@
 > Este repositório contém o código-fonte e a documentação do projeto acadêmico (AEP - Atividade de Estudo Programado) focado no "Uso de Aplicativo para Controle e Lembrete de Medicamentos como Apoio à Saúde da População".
 
 **Autores:**
-* Lucas Monteiro Prado da Silva Schiavo RA: 24143251-2
-* Rodolfo Alves RA: 24121419-2
+* Lucas Monteiro Prado da Silva Schiavo
+* Rodolfo Alves
 
 ---
 
@@ -31,12 +31,12 @@ Com base na metodologia do projeto, as funcionalidades centrais da aplicação i
 
 ## 🗄️ Estrutura do Banco de Dados
 
+> **OBS:** Os arquivos com a estrutura do Banco de Dados como DDL e DML estão no repositório, junto ao código.
+
 Os arquivos SQL contendo a estrutura do banco de dados estão disponíveis neste repositório:
 
 * **DDL (Data Definition Language):** Script para a **criação** das tabelas (`User`, `Medication`, `Schedule`, `UserLog`).
 * **DML (Data Manipulation Language):** Script com exemplos de `INSERT` para **popular** o banco de dados.
-
-O código-fonte da aplicação (backend Spring Boot e frontend React) também está incluído nos respectivos diretórios.
 
 ---
 
