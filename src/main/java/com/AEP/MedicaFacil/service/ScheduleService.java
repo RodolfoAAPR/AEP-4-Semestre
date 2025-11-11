@@ -26,8 +26,6 @@ public class ScheduleService {
     }
 
     public Schedule registerSchedule(Schedule schedule){
-        // Aqui, em um projeto real, você validaria se o user e o medication existem antes de salvar.
-        // Para simplificar, vamos confiar que os IDs corretos serão enviados.
         return scheduleRepository.save(schedule);
     }
 
@@ -35,7 +33,6 @@ public class ScheduleService {
         Schedule newSchedule = scheduleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Agendamento com o ID:" + id + " não encontrado!"));
 
-        // Atualiza os dados do agendamento com as informações recebidas
         newSchedule.setUser(schedule.getUser());
         newSchedule.setMedication(schedule.getMedication());
         newSchedule.setDosage(schedule.getDosage());
